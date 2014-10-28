@@ -1,0 +1,80 @@
+
+
+Aufgabe 1:
+a) Charakterisierung:
+    Ein Informationssystem (IS) besteht aus Menschen und Maschinen, die Informationen erzeugen und/oder benutzen und die durch Kommunikationsbeziehungen miteinander verbunden sind. 
+	
+	Drei relevante Aufgaben eines rechnergestützen Informationssystem sind die Erfassung, Speicherung und/oder Transformierung von Information. Dies kann durch Einsatz von EDV (teilweise) automatisiert werden.
+
+b) Datenunabhängigkeit:
+	Datenunabhängigkeit ermöglicht eine starke Isolation von Applikationen, sodass Daten unabhängig von ihrer Verwendung und ihrer Struktur gespeichert werden können.
+	Hierbei gibt es physische Datenunabhängigkeit, wie z.B. Geräteunabhängigkeit und Speicherungsstrukturunabhängigkeit als auch logische Datenunabhängigkeit, wie z.B. Zugriffspfadunabhängigkeit und Datenstrukturunabhängigkeit.
+	
+c) 3 Beispiele
+ 1)	Geldautomat: Geld abheben.
+	 Der Geldautomat stellt das Informationssystem dar, welches anhängig von meiner Anfrage und anhängig von den (über mich) gespeicherten Daten es mir erlaubt, Geld abzuheben.
+	 
+ 2) TODO
+ 
+ 3) TODO
+ 
+
+Aufgabe 2:
+ a) relevante Elemente der beschriebenen Miniwelt
+ 
+	(1) Teammates:
+	 - id:			int
+	 - username:	varchar
+	 - password:	varchar
+	(2) BettingPool:
+	 - id:			int
+	 - name:		varchar
+	 - founder:		int (Teammates.id) (Gründer)
+	(3) Competitions:
+	 - id:			int
+	 - bettingPool:	int (BettingPool.id)
+	 - ...
+	(4) Meet(ing):
+	 - id:			int
+	 - bettingPool: int (BettingPool.id)
+	 - ...
+	(5) MeetTip
+	 - id:			int
+	 - bettingPool:	int (BettingPool.id)
+	 - meet:		int (Meet.id)
+	 - tipper:		int (Teammates.id)
+	 - tip:			varchar
+	(6) Results:
+	 - id:			int
+	 - bettingPool: int (BettingPool.id)
+	 - ...
+	 
+	Jeder Mitspieler soll sich an der Anwendung anmelden (1) und eine Tippspielgemeinschaft erstellen können (2). Der jeweilige Gründer verwaltet dabei die Tippspielgemeinschaft in dem er für diese Wettbewerbe anlegt (3), Begegnungen zu einem Wettbewerb hinzufügt (4) oder Ergebnisse einträgt (6). Der Tippspielgründer hat außerdem die Möglichkeit, weitere Mitspieler zu dieser Gemeinschaft hinzuzufügen (1) oder auch zu entfernen. Diese hinzugefügten Mitspieler können dann Tipps auf die angelegten Begegnungen abgeben (5). Nachdem Beenden einer Begegnung trägt der Verwalter das Ergebnis ein (6) und die Mitspieler erhalten für ihre Tipps entsprechende Punkte. Die Mitspieler können sich in der Anwendung jeweils über ihren aktuellen Punktestand innerhalb einer Tippgemeinschaft informieren oder auch die Ergebnisse zu den Begegnungen einsehen (6).
+	
+	Der Punktestand kann mit einem weiterem Element (Points) realisiert werden, oder eben dynamisch berechnet werden.
+	
+	Die Vorgänge - anlegen, eintragen, erstellen, hinzufügen, "Tipps abgeben" - bezeichenen alle einen neue Eintrag anzulegen (INSERT).
+	Der Vorgang - entfernen - bezeichnet einen Eintrag zu löschen (DELETE)
+	Der Vorgang - verwalten - bezeichnet einen Eintrag hinzuzufügen (INSERT), zu löschen (DELETE) oder zu aktualisieren (UPDATE)
+	Die Vorgänge - informieren, einsehen - bezeichnen die aktuelle Daten auszulesen (SELECT)
+
+ b) TODO
+	Kontrolle über die operationalen Daten
+	Leichte Handhabbarkeit der Daten
+	Kontrolle der Datenintegrität
+	Leistung und Skalierbarkeit
+	Hoher Grad an Daten-Unabhängigkeit
+	
+Aufgabe 3: Transaktionen
+
+    Zeitpunkt:	| Daten werden sofort geschrieben	| Folge:
+	 A			| Ja								| Von Konto 5 wurde bereits was abgezogen (Inkonsitenz)
+	 A			| Nein								| Die Transaktionen wurde nicht abgeschloßen. Daten noch konsiztent.
+	 B			| Ja								| Die Transaktionen wurde ausgeführt (nicht komplett), die Daten sind korrekt
+	 B			| Nein								| Fall 1: Keine Daten wurde geschrieben. Dann bleibt alles im Ausgangszustand.
+													| Fall 2: Nur der erste Vorgang wurde gespeichert. Die Daten sind inkonsitent.
+	
+	Ein Datenbanksystem kann die Folgen verhindert, in dem es die Daten erst (final) speichert, nachdem die Transaktionen beendet wurde (END) und sein Okay zurück gibt. Falls vorher Probleme irgendeiner Art auftreten (z.B. Stromausfall), dann wird die Transaktionen abgebrochen und muss neu gestartet werden.
+	
+Aufgabe 4: Warm-up (TODO: Serververbindung?)
+	
